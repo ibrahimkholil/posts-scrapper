@@ -4,13 +4,13 @@ import httpx
 from typing import Tuple
 
 
-async def download_and_process_image(image_url: str) -> Tuple[bytes, str]:
+def download_and_process_image(image_url: str) -> Tuple[bytes, str]:
     """
     Download an image, process it (resize to max 1920px width, convert to WebP),
     and return the binary data and content type.
     """
-    async with httpx.AsyncClient() as client:
-        response = await client.get(image_url, timeout=30)
+    with httpx.Client() as client:
+        response = client.get(image_url, timeout=30)
         response.raise_for_status()
         
         # Open image with Pillow

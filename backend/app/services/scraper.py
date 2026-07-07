@@ -1,22 +1,22 @@
-from playwright.async_api import async_playwright
+from playwright.sync_api import sync_playwright
 from readability import Document
 import httpx
 
 
-async def scrape_url(url: str) -> dict:
+def scrape_url(url: str) -> dict:
     """
     Scrape content from a URL using Playwright for JavaScript rendering.
     Returns extracted title and HTML content.
     """
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
-        page = await browser.new_page()
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
         
         try:
-            await page.goto(url, wait_until='networkidle', timeout=30000)
+            page.goto(url, wait_until='networkidle', timeout=30000)
             
             # Get the full HTML
-            html = await page.content()
+            html = page.content()
             
             # Use readability to extract main content
             doc = Document(html)
@@ -24,10 +24,10 @@ async def scrape_url(url: str) -> dict:
             content_html = doc.summary()
             
             # Get all images for later processing
-            images = await page.query_selector_all('img')
+            images = page.query_selector_all('img')
             image_urls = []
             for img in images:
-                src = await img.get_attribute('src')
+                src = img.get_attribute('src')
                 if src and src.startswith('http'):
                     image_urls.append(src)
             
@@ -38,4 +38,4 @@ async def scrape_url(url: str) -> dict:
                 "url": url
             }
         finally:
-            await browser.close()
+            browser.close()
