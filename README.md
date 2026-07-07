@@ -48,9 +48,9 @@ A secure, web-based internal tool that allows team members to scrape blog posts 
    ```
 
 6. **Access the application**
-   - Frontend: http://localhost:3000
-   - Backend API: http://localhost:8000
-   - API Docs: http://localhost:8000/docs
+   - Frontend: http://localhost:3005
+   - Backend API: http://localhost:8002
+   - API Docs: http://localhost:8002/docs
 
 ### Option 2: Local Development
 
@@ -96,7 +96,7 @@ After running `init_db.py`, you can login with:
 
 ### Step 1: Add a WordPress Connection
 
-1. Login at http://localhost:3000/login
+1. Login at http://localhost:3005/login
 2. Navigate to "Connections"
 3. Click "Add Connection"
 4. Enter your WordPress site details:
